@@ -1,10 +1,17 @@
 {
   "name": "ngrx-hocus",
-  "version": "0.0.1",
+  "version": "0.0.3",
+  "author": "Dan Patiu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lolismatic/ngrx-hocus/issues"
+  },
+  "homepage": "https://github.com/lolismatic/ngrx-hocus",
+  "description": "A package to use with ngrx store / effects that helps with binding state dispatching actions and listening to actions via decorators.",
   "peerDependencies": {
-    "@angular/common": "^7.2.0",
-    "@angular/core": "^7.2.0",
-    "@ngrx/store": "^7.4.0",
-    "@ngrx/effects": "^7.4.0"
+    "@angular/router": ">=7.0.0 <8.0.0",
+    "@angular/core": ">=7.0.0 <8.0.0",
+    "@ngrx/store": ">=7.0.0 <8.0.0",
+    "@ngrx/effects": ">=7.0.0 <8.0.0"
   }
 }

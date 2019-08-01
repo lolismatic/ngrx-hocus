@@ -15,3 +15,5 @@ function Select(...args) {
     setMetadataEntries(target, [metadata]);
   };
 }
+
+export { Select };

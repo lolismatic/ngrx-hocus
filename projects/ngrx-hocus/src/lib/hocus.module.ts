@@ -1,5 +1,6 @@
-import { NgModule, ModuleWithProviders, Type, Injector, ComponentFactoryResolver } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HocusComponentFactoryInterceptor } from './component-factory-interceptor';
+import { HocusComponentFactoryBinder } from './component-factory-binder';
 
 @NgModule({})
 export class HocusModule {
@@ -7,10 +8,17 @@ export class HocusModule {
     interceptor.intercept();
   }
 
-  public static forRoot(): ModuleWithProviders {
+  public static forFeature(): ModuleWithProviders {
     return {
       ngModule: HocusModule,
       providers: [HocusComponentFactoryInterceptor]
+    };
+  }
+
+  public static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: HocusModule,
+      providers: [HocusComponentFactoryBinder, HocusComponentFactoryInterceptor]
     };
   }
 }

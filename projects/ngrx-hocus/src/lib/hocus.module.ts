@@ -1,11 +1,16 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders, Type, Injector, ComponentFactoryResolver } from '@angular/core';
+import { HocusComponentFactoryInterceptor } from './component-factory-interceptor';
 
-import { RouterOutletApplierDirective } from './directives/router-outlet-applier.directive';
-
-@NgModule({
-  declarations: [RouterOutletApplierDirective],
-  exports: [RouterOutletApplierDirective]
-})
+@NgModule({})
 export class HocusModule {
+  constructor(interceptor: HocusComponentFactoryInterceptor) {
+    interceptor.intercept();
+  }
 
+  public static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: HocusModule,
+      providers: [HocusComponentFactoryInterceptor]
+    };
+  }
 }

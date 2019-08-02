@@ -3,18 +3,13 @@
   "version": "0.0.0-GIT-TAGS",
   "scripts": {
     "ng": "ng",
-<<<<<<< HEAD
     "build": "ng build",
     "postbuild": "sh ./scripts/postbuild.sh",
     "publish": "npm publish ./dist/ngrx-hocus",
     "postpublish": "sh ./scripts/postpublish.sh",
     "semver": "semver",
     "test": "ng test --watch=false",
-=======
-    "build": "ng build && npm pack ./dist/ngrx-hocus",
     "deploy:local": "sh deploy-local.sh",
-    "test": "ng test",
->>>>>>> feat(app): stable interceptor pattern
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

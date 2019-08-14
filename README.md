@@ -1,27 +1,131 @@
-# NgrxHocusApp
+# Ngrx Hocus
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+A library for using ngrx store with decorators.
 
-## Development server
+# Status
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This is just a prototype library for the moment.
 
-## Code scaffolding
+No testing done, for the love of God do not use it in production.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Setup
 
-## Build
+## Module import
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Import the root module configuration for the `AppModule` or `CoreModule`.
 
-## Running unit tests
+```typescript
+@NgModule({
+  imports: [HocusModule.forRoot()]
+})
+export class AppModule {}
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
 
-## Running end-to-end tests
+Import the feature module configuration for any lazy loaded module, or child module of the root.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```typescript
+@NgModule({
+  imports: [HocusModule.forFeature()]
+})
+export class AppModule {}
 
-## Further help
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Using the decorators
+
+Some context for the app state...
+
+```typescript
+export interface PageState {
+  title: string;
+}
+
+export interface AppState {
+  page: PageState;
+}
+```
+
+Some actions context...
+
+```typescript
+import { Action } from '@ngrx/store';
+
+export class ChangeTitle implements Action {
+  public readonly type = '[page] Change title';
+
+  constructor(public readonly title: string) {}
+}
+
+export type PageActions = ChangeTitle;
+```
+
+Some context for the reducer...
+
+```typescript
+import { PageActions, ChangeTitle } from './actions';
+
+export const INITIAL_STATE = {
+  title: 'Old boring title'
+};
+
+export const REDUCER = function(
+  state: PageState = INITIAL_STATE,
+  action: PageActions
+) {
+  switch (action.type) {
+    case '[page] Change title':
+      return { ...state, title: action.title };
+      // ...
+  }
+}
+```
+
+Lastly the usage of the decorators...
+
+```typescript
+import { Select, Dispatch, Dispatchable } from 'ngrx-hocus';
+
+import { ChangeTitle } from './actions';
+
+@Component({ template: '<h1>{{title}}</h1>' })
+export class AppComponent {
+  @Select('page', 'title') title: string;
+
+  @Dispatch(ChangeTitle) changeTitle: Dispatchable<typeof ChangeTitle>;
+
+  ngOnInit(): void {
+    this.changeTitle('Hello, new Title');
+  }
+}
+```
+
+Select will bind the value of the state to the title, read only.
+
+Dispatch will bind a method to the AppComponent that will dispatch a ChangeTitle action.
+
+If the reducer is properly set the `AppComponent`'s title will be `Hello, new Title`
+
+## Optionally
+
+_(But highly recommanded...)_
+
+Create a `hocus.ts` file in the src folder of the application with the following content.
+
+```typescript
+import { SelectFrom, DispatchFrom } from 'ngrx-hocus';
+
+import { AppState } from './reducers';
+import { AppActions } from './actions';
+
+declare module 'ngrx-hocus' {
+  export const Select: SelectFrom<AppState>;
+  export const Dispatch: DispatchFrom<AppActions>;
+}
+```
+
+Where the `AppState` is the state of the application and the `AppActions` is a union type of all the application actions.
+
+This will re-declare the `Select` and `Dispatch` but keep the implementation working.
+
+

@@ -3,7 +3,7 @@ version: 2.1
 executors:
   releaser:
     docker:
-      - image: circleci/node:10.2.1-browsers
+      - image: circleci/node:10.10.0-browsers
     working_directory: ~/tmp
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Dependencies
           command: |
-            npm install
+            npm ci --prefer-offline
       - save_cache:
           paths:
             - /node_modules  # location depends on npm version

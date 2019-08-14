@@ -1,8 +1,11 @@
+import { MemoizedSelector } from '@ngrx/store';
+
 // tslint:disable:max-line-length
 // tslint:disable:only-arrow-functions
 import { SelectMetadata, setMetadataEntries } from './metadata';
 
 export type SelectFrom<State> =
+  ((selector: MemoizedSelector<State, any>) => (target: any, propertyName: string | symbol) => void) &
   (<a extends keyof State>(key: a) => (target: any, propertyName: string | symbol) => void) &
   (<a extends keyof State, b extends keyof State[a]>(key1: a, key2: b) => (target: any, propertyName: string | symbol) => void) &
   (<a extends keyof State, b extends keyof State[a], c extends keyof State[a][b]>(key1: a, key2: b, key3: c) => (target: any, propertyName: string | symbol) => void) &

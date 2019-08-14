@@ -1,5 +1,4 @@
 export * from './dispatch.metadata';
-export * from './listen.metadata';
 export * from './select.metadata';
 
 const METADATA_KEY = '__ngrx-hocus__';
@@ -7,9 +6,7 @@ const METADATA_KEY = '__ngrx-hocus__';
 export function getDecoratorMetadata<T>(
   instance: T
 ): any[] {
-  const effectsDecorators: any[] = Object.getPrototypeOf(instance).constructor[METADATA_KEY] || [];
-
-  return effectsDecorators;
+  return Object.getPrototypeOf(instance).constructor[METADATA_KEY] || [];
 }
 
 export function setMetadataEntries<T>(

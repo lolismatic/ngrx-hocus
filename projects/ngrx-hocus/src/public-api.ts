@@ -2,8 +2,7 @@
  * Public API Surface of ngrx-hocus
  */
 
-export * from './lib/hocus.module';
-export * from './lib/select';
-export * from './lib/dispatch';
-export * from './lib/listen';
-export * from './lib';
+export { HocusModule } from './lib/hocus.module';
+export { Select, SelectFrom } from './lib/select';
+export { Dispatch, DispatchFrom } from './lib/dispatch';
+export { Dispatchable } from './lib/dispatchable';

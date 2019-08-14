@@ -1,6 +1,6 @@
 # NgrxHocus
 
-A library for using ngrx store and effects with decorators.
+A library for using ngrx store with decorators.
 
 # Status
 

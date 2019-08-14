@@ -7,10 +7,9 @@
     "url": "https://github.com/lolismatic/ngrx-hocus/issues"
   },
   "homepage": "https://github.com/lolismatic/ngrx-hocus",
-  "description": "A package to use with ngrx store / effects that helps with binding state dispatching actions and listening to actions via decorators.",
+  "description": "A package to use with ngrx store that helps with by binding state and dispatching actions via decorators.",
   "peerDependencies": {
     "@angular/core": ">=8.0.0 <9.0.0",
-    "@ngrx/store": ">=8.0.0 <9.0.0",
-    "@ngrx/effects": ">=8.0.0 <9.0.0"
+    "@ngrx/store": ">=8.0.0 <9.0.0"
   }
 }

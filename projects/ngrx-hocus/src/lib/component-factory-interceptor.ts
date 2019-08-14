@@ -11,7 +11,6 @@ export class HocusComponentFactoryInterceptor {
   intercept() {
     const interceptedResolveComponentFactory = this.componentFactoryResolver.resolveComponentFactory.bind(this.componentFactoryResolver);
 
-    // tslint:disable-next-line:only-arrow-functions
     this.componentFactoryResolver.resolveComponentFactory = (type) => {
       const componentFactory: ComponentFactory<any> = interceptedResolveComponentFactory(type);
 

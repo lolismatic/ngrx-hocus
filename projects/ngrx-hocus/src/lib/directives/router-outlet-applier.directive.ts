@@ -40,8 +40,8 @@ export class RouterOutletApplierDirective implements OnDestroy {
                     map(rabbitHole)
                   );
               } else if (metadata instanceof DispatchMetadata) {
-                instance[metadata.propertyName] = function() {
-                  store.dispatch(new metadata.action(...Array.from(arguments)));
+                instance[metadata.propertyName] = (...args) => {
+                  store.dispatch(new metadata.action(...Array.from(args)));
                 };
               } else if (metadata instanceof ListenMetadata) {
                 const { actions: listenActions } = metadata;

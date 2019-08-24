@@ -1,6 +1,6 @@
 {
   "name": "ngrx-hocus",
-  "version": "0.0.3",
+  "version": "@@version@@",
   "author": "Dan Patiu",
   "license": "MIT",
   "bugs": {

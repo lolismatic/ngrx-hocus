@@ -1,0 +1,100 @@
+
+version: 2.1
+executors:
+  releaser:
+    docker:
+      - image: circleci/node:10.2.1-browsers
+    working_directory: ~/tmp
+
+jobs:
+  install:
+    executor: releaser
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run:
+          name: Dependencies
+          command: |
+            npm install
+      - save_cache:
+          paths:
+            - /node_modules  # location depends on npm version
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - tmp
+  lint:
+    executor: releaser
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      - run:
+          name: Lint
+          command: |
+            npm run lint
+  build:
+    executor: releaser
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      - run:
+          name: Build
+          command: |
+            npm run build
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - tmp/dist/*
+            - tmp/.version
+  test:
+    executor: releaser
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      - run:
+          name: Test
+          command: |
+            npm run test
+  publish:
+    executor: releaser
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      - run:
+          name: 'Package json'
+          command: |
+            cat ./dist/ngrx-hocus/package.json
+      - run:
+          name: Publish
+          command: |
+            npm run publish
+
+workflows:
+  version: 2
+  release:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - build:
+          requires:
+            - install
+      - test:
+          requires:
+            - build
+            - lint
+      - publish:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - develop
+                - master

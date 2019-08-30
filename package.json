@@ -5,7 +5,7 @@
     "build": "ng build",
     "postbuild": "sh ./scripts/postbuild.sh",
     "publish": "npm publish ./dist/ngrx-hocus",
-    "postpublishOnly": "sh ./scripts/postpublish.sh",
+    "postpublish": "sh ./scripts/postpublish.sh",
     "semver": "semver",
     "test": "ng test --watch=false",
     "lint": "ng lint",

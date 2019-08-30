@@ -74,6 +74,10 @@ jobs:
           command: |
             npm whoami
       - run:
+          name: SSH Thrust Github
+          command: |
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
           name: Publish
           command: |
             npm run publish

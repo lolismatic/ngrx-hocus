@@ -1,5 +1,5 @@
 #!/bin/bash
-version=$(git describe --tags)
+version=$(git describe --abbrev=0 --tags)
 
 if [ -n "$version" ];
 then

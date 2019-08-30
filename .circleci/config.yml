@@ -67,9 +67,12 @@ jobs:
       - attach_workspace:
           at: /home/circleci
       - run:
-          name: 'Package json'
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+      - run:
+          name: Who am i?
           command: |
-            cat ./dist/ngrx-hocus/package.json
+            npm whoami
       - run:
           name: Publish
           command: |

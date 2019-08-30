@@ -1,12 +1,9 @@
 {
   "name": "ngrx-hocus-lib",
-  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prebuild": "sh ./scripts/prebuild.sh",
     "build": "ng build",
     "postbuild": "sh ./scripts/postbuild.sh",
-    "prepublishOnly": "sh ./scripts/prepublish.sh",
     "publish": "npm publish ./dist/ngrx-hocus",
     "postpublishOnly": "sh ./scripts/postpublish.sh",
     "semver": "semver",

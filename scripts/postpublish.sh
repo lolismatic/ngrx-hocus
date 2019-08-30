@@ -1,5 +1,4 @@
 #!/bin/bash
-version=$(cat .version)
+version=$(node -p -e "require('./dist/ngrx-hocus/package.json').version")
 
-git tag -a $version -m "CI bump"
-git push origin --tag $version
+git tag -a "$version" -m "tagging version"

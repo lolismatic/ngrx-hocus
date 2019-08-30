@@ -8,5 +8,5 @@ git push origin $version -f
 
 version=$(git describe --abbrev=0 --tags)
 
-echo "Version of git $version"
+echo "Tagged version '$version'"
 

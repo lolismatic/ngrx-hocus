@@ -3,13 +3,7 @@ version=$(node -p -e "require('./dist/ngrx-hocus/package.json').version")
 
 echo "Tagging '$version'"
 
-git config --global user.email dan.patiu@gmail.com
-git config --global user.name lolismatic
-
-git tag -a "$version" -m "bump ci"
-git push origin $version -f
-
-version=$(git describe --abbrev=0 --tags)
+ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${version} ./dist/
 
 echo "Tagged version '$version'"
 
